@@ -1,0 +1,37 @@
+{
+  "name": "stonehearts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@pinia/nuxt": "^0.5.5",
+    "@sabaki/go-board": "^1.4.3",
+    "@sabaki/immutable-gametree": "^1.9.4",
+    "@sabaki/sgf": "^3.4.7",
+    "@vueuse/core": "^11.1.0",
+    "axios": "^1.7.7",
+    "nuxt": "^3.13.0",
+    "pinia": "^2.2.4",
+    "pinia-plugin-persistedstate": "^4.1.1",
+    "uuid": "^10.0.0",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vue3-apexcharts": "^1.7.0",
+    "vue3-google-login": "^2.0.33"
+  },
+  "overrides": {
+    "vue": "latest"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0",
+    "vite-plugin-vuetify": "^2.0.4",
+    "vuetify": "^3.7.2"
+  }
+}
