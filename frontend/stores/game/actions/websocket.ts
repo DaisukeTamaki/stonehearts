@@ -18,7 +18,9 @@ export const gameWebSocketActions = {
       if (this.gameId) params.append("game_id", this.gameId);
       if (authStore.tokenString) params.append("token", authStore.tokenString);
 
-      let wsUrl = `${config.public.apiBaseUrl}/ws/analyze`;
+      const base = (config.public.apiBaseUrl as string)
+        .replace(/^http/, "ws");
+      let wsUrl = `${base}/ws/analyze`;
       if (params.toString()) wsUrl += `?${params.toString()}`;
 
       const { send, close, status } = useWebSocket(wsUrl, {

@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-stonehearts}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stonehearts}
+      POSTGRES_DB: ${POSTGRES_DB:-stonehearts}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-stonehearts}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_SERVER: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-stonehearts}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stonehearts}
+      POSTGRES_DB: ${POSTGRES_DB:-stonehearts}
+      SECRET_KEY: ${SECRET_KEY:-changeme-in-production}
+      BACKEND_CORS_ORIGINS: ${BACKEND_CORS_ORIGINS:-http://localhost:3000}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      KATAGO_SERVER_URL: ${KATAGO_SERVER_URL:-ws://host.docker.internal:8001/ws/analyze}
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    environment:
+      NUXT_PUBLIC_API_BASE_URL: ${API_BASE_URL:-http://localhost:8000/api/v1}
+      NUXT_PUBLIC_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
