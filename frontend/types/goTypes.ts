@@ -62,7 +62,11 @@ export interface GameState {
   selectedCandidateRank: number | null;
   loading: boolean;
   error: string | null;
-  websocket: WebSocket | null;
+  websocket: {
+    send: (data: string | ArrayBuffer | Blob, useBuffer?: boolean) => boolean;
+    close: (code?: number, reason?: string) => void;
+    status: string;
+  } | null;
   lastQueryId: string | null;
   websocketRetryCount: number;
   maxWebsocketRetries: number;

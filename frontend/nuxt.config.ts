@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   plugins: [
     "@/plugins/googleLogin.client.ts",
     "@/plugins/piniaPersistedState.client.ts",
+    "@/plugins/apexcharts.client.ts",
   ],
 
   modules: [
