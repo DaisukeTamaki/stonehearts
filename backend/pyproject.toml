@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "stonehearts"
+version = "0.1.0"
+description = "Go (Baduk/Weiqi) game management and analysis platform"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+    "alembic",
+    "asyncpg",
+    "fastapi",
+    "google-auth",
+    "pydantic[email]",
+    "pydantic-settings",
+    "python-jose[cryptography]",
+    "python-multipart",
+    "sgfmill",
+    "sqlalchemy[asyncio]",
+    "uvicorn[standard]",
+    "websockets",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 99
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
